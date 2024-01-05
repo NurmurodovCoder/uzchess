@@ -68,20 +68,19 @@ class Course(models.Model):
         if user.is_authenticated:
             return self.subscriptions.filter(user=user, active=True).exists()
         return False
-    
+
     def subscription_user(self, user):
         if not self.is_user_subscribed(user):
             CourseSubscription.objects.create(user=user, course=self)
             return True
         return False
-    
+
     def unsubsicription_user(self, user):
         if self.is_user_subscribed(user):
             CourseSubscription.objects.get(user=user).delete()
             return True
         return False
-            
-            
+
 
 class Block(models.Model):
     title = models.CharField(max_length=255)
@@ -115,7 +114,6 @@ class Comments(models.Model):
 
     def __str__(self):
         return self.title
-
 
 
 class CourseSubscription(models.Model):
